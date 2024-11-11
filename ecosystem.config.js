@@ -1,5 +1,5 @@
 const env_qa = {
-	APP_PORT: 5010,
+	APP_PORT: 5020,
 	NODE_ENV: "local-server",
   
 	MONGO_URI : "mongodb://localhost:27017/jumboDb",

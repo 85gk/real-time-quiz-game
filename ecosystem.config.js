@@ -3,7 +3,7 @@ const env_qa = {
 	NODE_ENV: "local-server",
   
 	// MONGO_URI : "mongodb://localhost:27017/jumboDb",
-	MONGO_URI: "mongodb+srv://85gk:Vm123%21%40%23@cluster0.43pn5wq.mongodb.net/snake-ladder?retryWrites=true&w=majority"
+	MONGO_URI: "mongodb+srv://85gk:Vm123%21%40%23@cluster0.43pn5wq.mongodb.net/snake-ladder?retryWrites=true&w=majority",
 
 	// jwt token
 	SECRET_ACCESS_TOKEN : "jumbo234@45wbt",

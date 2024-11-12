@@ -154,18 +154,18 @@ socketConnection.connect = function (io) {
                         if(gameProfileData.nParticipants==2 && gameData.isCompleted && otherPersonData.isCompleted){
                             console.log("result updated")
                             if(gameData.correctAns>otherPersonData.correctAns){
-                                gameProfileData.winner = gameProfileData.player[0].userId;
+                                gameProfileData.winner = gameProfileData.players[0].userId;
                                 gameProfileData.resultDeclaredReson=1;
                             }else if(gameData.correctAns<otherPersonData.correctAns) {
-                                gameProfileData.winner = gameProfileData.player[1].userId;
+                                gameProfileData.winner = gameProfileData.players[1].userId;
                                 gameProfileData.resultDeclaredReson=1;
                             } else {
                                 gameProfileData.resultDeclaredReson=2;
                             }
-                            gameProfileData.gameEndTime = new Date(moment());
+                            gameProfileData.gameEndTime = new Date();
                             gameProfileData.isActive = false;
                             await redis_service.setValue(socket.contestCode, gameProfileData);
-                            io.to(socket.roomId).emit(SOCKET_EVENTS.GAME_OVER, { "data": gameProfileData});
+                            io.to(socket.roomId).emit(SOCKET_EVENTS.GAME_OVER, { "response": gameProfileData});
                             // UPDATE MONGO
                             console.log("otherPersonid", otherPersonId);
                             console.log("socketid", socket.id)

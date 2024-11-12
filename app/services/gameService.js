@@ -21,7 +21,7 @@ gameService.createGameData = async (payload) => {
 };
 
 gameService.updateGameData = async (roomId, dataToUpdate) => {
-    return await gameDetails.findOneAndUpdate({roomId: roomId, userId:dataToUpdate.userId}, dataToUpdate, { new: true });
+        return await gameDetails.findOneAndUpdate({roomId: roomId, userId:dataToUpdate.userId}, dataToUpdate, { new: true });
 };
 
 gameService.getActiveRoom = async (payload) => {

@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const routes = require('../routes');
 const { log} = require('../utils/commonFunction');
+const path = require('path');
 
 module.exports = async function (app) {
     app.use(cors());
@@ -11,19 +12,19 @@ module.exports = async function (app) {
     app.use(express.urlencoded({ limit: '50mb', extended: false }));
 
     /** middleware for each api call to logging**/
-    app.use((req, res, next) => {
-        const start = process.hrtime.bigint();
-        res.on("finish", () => {
-            let end = process.hrtime.bigint();
-            let seconds = Number(end - start) / 1000000000;
+    // app.use((req, res, next) => {
+    //     const start = process.hrtime.bigint();
+    //     res.on("finish", () => {
+    //         let end = process.hrtime.bigint();
+    //         let seconds = Number(end - start) / 1000000000;
             
-            let message = `${req.method} ${res.statusCode} ${req.url} took ${seconds} seconds`;
-            if(res.statusCode >= 200 && res.statusCode <= 299){ log.success(message); }
-            else if(res.statusCode >= 400){ log.error(message); }
-            else { log.info(message); }
-        });
-        next();
-    });
+    //         let message = `${req.method} ${res.statusCode} ${req.url} took ${seconds} seconds`;
+    //         if(res.statusCode >= 200 && res.statusCode <= 299){ log.success(message); }
+    //         else if(res.statusCode >= 400){ log.error(message); }
+    //         else { log.info(message); }
+    //     });
+    //     next();
+    // });
     /********************************
     ***** For handling CORS Error ***
     *********************************/
@@ -33,6 +34,12 @@ module.exports = async function (app) {
         response.header('Access-Control-Allow-Methods', 'POST, GET, DELETE, PUT, OPTIONS');
         response.header('Access-Control-Max-Age', 1800);
         next();
+    });
+
+    app.use(express.static(path.resolve(__dirname, '../public')));
+
+    app.get('/connection', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '../public', 'socket.html'));
     });
 
     // using routes
